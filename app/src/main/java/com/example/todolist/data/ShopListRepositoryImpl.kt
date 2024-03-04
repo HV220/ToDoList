@@ -1,11 +1,16 @@
 package com.example.todolist.data
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.example.todolist.domain.ShopItem
 import com.example.todolist.domain.ShopListRepository
 
 class ShopListRepositoryImpl : ShopListRepository {
 
-    private val shopList = arrayListOf<ShopItem>()
+    private val shopList = mutableListOf<ShopItem>()
+
+    private val shopListLiveData = MutableLiveData<List<ShopItem>>()
+
     private var generatorId = 0
 
     override fun addShopItem(shopItem: ShopItem): Boolean = try {
@@ -13,6 +18,7 @@ class ShopListRepositoryImpl : ShopListRepository {
             shopItem.id = generatorId++
         }
         shopList.add(shopItem)
+        updateListLiveData()
         true
     } catch (e: Exception) {
         false
@@ -20,6 +26,7 @@ class ShopListRepositoryImpl : ShopListRepository {
 
     override fun deleteShopItem(shopItem: ShopItem): Boolean = try {
         shopList.remove(shopItem)
+        updateListLiveData()
         true
     } catch (e: Exception) {
         false
@@ -30,6 +37,7 @@ class ShopListRepositoryImpl : ShopListRepository {
 
         shopList.remove(previousItem)
         shopList.add(shopItem)
+        true
     } catch (e: Exception) {
         false
     }
@@ -38,8 +46,11 @@ class ShopListRepositoryImpl : ShopListRepository {
         return shopList.find { it.id == id } ?: throw RuntimeException()
     }
 
+    override fun getShopList(): LiveData<List<ShopItem>> {
+        return shopListLiveData
+    }
 
-    override fun getShopList(): List<ShopItem> {
-        return shopList.toList()
+    private fun updateListLiveData() {
+        shopListLiveData.value = shopList.toList()
     }
 }
