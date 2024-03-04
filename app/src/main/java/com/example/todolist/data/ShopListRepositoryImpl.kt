@@ -7,11 +7,17 @@ import com.example.todolist.domain.ShopListRepository
 
 class ShopListRepositoryImpl : ShopListRepository {
 
-    private val shopList = mutableListOf<ShopItem>()
+    private val shopList = sortedSetOf<ShopItem>({ o1, o2 -> o1.id.compareTo(o2.id) })
 
     private val shopListLiveData = MutableLiveData<List<ShopItem>>()
 
     private var generatorId = 0
+
+    init {
+        for (i in 0..100) {
+            addShopItem(ShopItem("name $i", i, true))
+        }
+    }
 
     override fun addShopItem(shopItem: ShopItem): Boolean = try {
         if (shopItem.id == ShopItem.UNDEFINED_ID) {
@@ -36,7 +42,7 @@ class ShopListRepositoryImpl : ShopListRepository {
         val previousItem = getShopItem(shopItem.id)
 
         shopList.remove(previousItem)
-        shopList.add(shopItem)
+        addShopItem(shopItem)
         true
     } catch (e: Exception) {
         false
