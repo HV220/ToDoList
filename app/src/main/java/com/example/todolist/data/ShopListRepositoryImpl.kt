@@ -15,7 +15,7 @@ class ShopListRepositoryImpl : ShopListRepository {
     private var generatorId = 0
 
     init {
-        for (i in 0..100) {
+        for (i in 0..1000) {
             addShopItem(ShopItem("name $i", i, Random.nextBoolean()))
         }
     }
