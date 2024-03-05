@@ -28,6 +28,16 @@ class MainActivity : AppCompatActivity() {
     private fun setupAdapter() {
         adapter = ShopItemAdapter()
         recyclerView.adapter = adapter
+
+        recyclerView.recycledViewPool.setMaxRecycledViews(
+            ShopItemAdapter.ENABLED_ITEM,
+            ShopItemAdapter.POOL_VIEW_HOLDER
+        )
+
+        recyclerView.recycledViewPool.setMaxRecycledViews(
+            ShopItemAdapter.DISABLED_ITEM,
+            ShopItemAdapter.POOL_VIEW_HOLDER
+        )
     }
 
     private fun setupViewModel() {

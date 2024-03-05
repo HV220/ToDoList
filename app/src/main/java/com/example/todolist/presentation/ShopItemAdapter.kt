@@ -1,5 +1,6 @@
 package com.example.todolist.presentation
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +12,12 @@ import com.example.todolist.domain.ShopItem
 
 class ShopItemAdapter() :
     RecyclerView.Adapter<ShopItemAdapter.ShopItemViewHolder>() {
-
+    companion object {
+        const val ENABLED_ITEM = 1
+        const val DISABLED_ITEM = 0
+        const val POOL_VIEW_HOLDER = 15
+    }
+var count = 0
     var shopItems: List<ShopItem> = arrayListOf()
         set(value) {
             field = value
@@ -19,12 +25,16 @@ class ShopItemAdapter() :
         }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ShopItemViewHolder {
-        val binding = if (viewType == 1) {
-            LayoutInflater.from(parent.context).inflate(R.layout.item_shop_enabled, parent, false)
-        } else {
-            LayoutInflater.from(parent.context).inflate(R.layout.item_shop_disabled, parent, false)
+        Log.d("ShopItemAdapter", "${++count}")
+        val binding = when (viewType) {
+            ENABLED_ITEM -> R.layout.item_shop_enabled
+            DISABLED_ITEM -> R.layout.item_shop_disabled
+            else -> throw RuntimeException("layout wasn't find")
         }
-        return ShopItemViewHolder(binding)
+
+        val view = LayoutInflater.from(parent.context).inflate(binding, parent, false)
+
+        return ShopItemViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: ShopItemViewHolder, position: Int) {
@@ -35,7 +45,7 @@ class ShopItemAdapter() :
 
     override fun getItemViewType(position: Int): Int {
         val item = shopItems[position]
-        return if (item.enable) 1 else 0
+        return if (item.enable) ENABLED_ITEM else DISABLED_ITEM
     }
 
     override fun getItemCount(): Int = shopItems.size
