@@ -4,30 +4,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.example.todolist.R
 import com.example.todolist.domain.ShopItem
 
 class ShopItemAdapter :
-    RecyclerView.Adapter<ShopItemAdapter.ShopItemViewHolder>() {
+    ListAdapter<ShopItem, ShopItemAdapter.ShopItemViewHolder>(ShopItemDiffCallback()) {
     companion object {
         const val ENABLED_ITEM = 1
         const val DISABLED_ITEM = 0
         const val POOL_VIEW_HOLDER = 15
         const val TAG = "ShopItemAdapter"
     }
-
-    var shopItems: List<ShopItem> = arrayListOf()
-        set(value) {
-            val shopListDiff = ShopListDiffCallback(shopItems, value)
-            val resultDiff = DiffUtil.calculateDiff(shopListDiff)
-
-            resultDiff.dispatchUpdatesTo(this@ShopItemAdapter)
-
-            field = value
-        }
 
     var onLongClickListenerShopItem: ((ShopItem) -> Unit)? = null
     var onClickListenerShopItem: ((ShopItem) -> Unit)? = null
@@ -46,7 +35,7 @@ class ShopItemAdapter :
 
     override fun onBindViewHolder(holder: ShopItemViewHolder, position: Int) {
 
-        val shopItem = shopItems[position]
+        val shopItem = this.getItem(position)
 
         with(holder) {
             textDescriptionDo.text = shopItem.name
@@ -61,13 +50,10 @@ class ShopItemAdapter :
         }
     }
 
-
     override fun getItemViewType(position: Int): Int {
-        val item = shopItems[position]
+        val item = this.getItem(position)
         return if (item.enable) ENABLED_ITEM else DISABLED_ITEM
     }
-
-    override fun getItemCount(): Int = shopItems.size
 
     class ShopItemViewHolder(view: View) :
         ViewHolder(view) {

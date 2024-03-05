@@ -58,7 +58,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupViewModelClickListener() {
         model.getShopList().observe(this) {
-            adapter.shopItems = it
+            adapter.submitList(it)
         }
     }
 
@@ -84,7 +84,7 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                    model.deleteShopItem(adapter.shopItems[viewHolder.adapterPosition])
+                    model.deleteShopItem(adapter.currentList[viewHolder.adapterPosition])
                 }
             }
     }
