@@ -10,28 +10,27 @@
         android:id="@+id/text_description_do"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:minHeight="50dp"
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
+        android:hint="@string/what_do_you_need_to_remember"
+        android:minHeight="50dp"
         app:layout_constraintBottom_toTopOf="@+id/text_count_do"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_chainStyle="packed"
-        android:hint="@string/what_do_you_need_to_remember" />
+        app:layout_constraintVertical_chainStyle="packed" />
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/text_count_do"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:minHeight="50dp"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="10dp"
+        android:hint="@string/count"
         android:inputType="textCapWords"
+        android:minHeight="50dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_description_do"
-        android:hint="@string/count" />
-
+        app:layout_constraintTop_toBottomOf="@+id/text_description_do" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/add_motion_button"
