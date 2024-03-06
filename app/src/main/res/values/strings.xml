@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">ToDoList</string>
     <string name="add_new_todo_item">add new todo item</string>
+    <string name="count">count:</string>
+    <string name="what_do_you_need_to_remember">what do you need to remember?</string>
+    <string name="add_to_do_list">add to do list</string>
 </resources>

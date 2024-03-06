@@ -24,6 +24,7 @@ class ShopListRepositoryImpl : ShopListRepository {
         if (shopItem.id == ShopItem.UNDEFINED_ID) {
             shopItem.id = generatorId++
         }
+
         shopList.add(shopItem)
         updateListLiveData()
         true
