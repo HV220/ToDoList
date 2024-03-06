@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.ItemTouchHelper.RIGHT
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todolist.R
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class MainActivity : AppCompatActivity() {
     private lateinit var model: MainViewModel
@@ -15,6 +16,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var touchShopItem: ItemTouchHelper
     private lateinit var swipeDeleteShopItem: ItemTouchHelper.SimpleCallback
+    private lateinit var addDoFloatingButton: FloatingActionButton
 
     companion object {
         const val TAG = "MainActivity"
@@ -27,10 +29,12 @@ class MainActivity : AppCompatActivity() {
         setupViewModel()
         setupRecyclerView()
         setupAdapter()
-        setupViewModelClickListener()
+        setupViewModelObservation()
         setupAdapterOnClickListener()
         setupSwipeDeleteShopItem()
         setTouchHelperToRecyclerView()
+        setupFloatingActionButton()
+        setupAddItemFloatingActionButtonOnClickListener()
     }
 
     private fun setupAdapter() {
@@ -56,7 +60,7 @@ class MainActivity : AppCompatActivity() {
         recyclerView = findViewById(R.id.toDoListRecyclerView)
     }
 
-    private fun setupViewModelClickListener() {
+    private fun setupViewModelObservation() {
         model.getShopList().observe(this) {
             adapter.submitList(it)
         }
@@ -92,5 +96,16 @@ class MainActivity : AppCompatActivity() {
     private fun setTouchHelperToRecyclerView() {
         touchShopItem = ItemTouchHelper(swipeDeleteShopItem)
         touchShopItem.attachToRecyclerView(recyclerView)
+    }
+
+    private fun setupFloatingActionButton() {
+        addDoFloatingButton = findViewById(R.id.addDoFloatingButton)
+    }
+
+    private fun setupAddItemFloatingActionButtonOnClickListener() {
+        addDoFloatingButton.setOnClickListener {
+            val intent = ShopItemActivity.getIntent(this@MainActivity)
+            startActivity(intent)
+        }
     }
 }
