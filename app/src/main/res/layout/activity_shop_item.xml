@@ -32,6 +32,7 @@
         app:layout_constraintTop_toBottomOf="@+id/text_description_do"
         android:hint="@string/count" />
 
+
     <com.google.android.material.button.MaterialButton
         android:id="@+id/add_motion_button"
         android:layout_width="match_parent"
