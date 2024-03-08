@@ -4,4 +4,10 @@
     <string name="count">count:</string>
     <string name="what_do_you_need_to_remember">what do you need to remember?</string>
     <string name="add_to_do_list">add to do list</string>
+    <string name="save">save</string>
+    <string name="what_do_you_need_to_do">What do you need to do?</string>
+    <string name="count_question">Count?</string>
+    <string name="folder_can_t_be_empty">folder can\'t be empty</string>
+    <string name="there_is_some_problem_with_name">There is some problem with name</string>
+    <string name="there_is_some_problem_with_number">There is some problem with number</string>
 </resources>

@@ -9,7 +9,7 @@ import com.example.todolist.domain.GetShopListUseCase
 import com.example.todolist.domain.ShopItem
 
 class MainViewModel : ViewModel() {
-    private val realisation = ShopListRepositoryImpl()
+    private val realisation = ShopListRepositoryImpl
 
     private val getShopListUseCase = GetShopListUseCase(realisation)
     private val editShopItemUseCase = EditShopItemUseCase(realisation)

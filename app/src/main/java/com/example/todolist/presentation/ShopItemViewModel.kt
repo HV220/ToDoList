@@ -24,11 +24,11 @@ class ShopItemViewModel : ViewModel() {
     val shopItem: LiveData<ShopItem> get() = _shopItem
 
     companion object {
-
+        private const val TAG = "ShopItemViewModel"
         const val ERROR_PARSE_INPUT_COUNT = 0
     }
 
-    private val shopListRepositoryImpl: ShopListRepositoryImpl = ShopListRepositoryImpl()
+    private val shopListRepositoryImpl: ShopListRepositoryImpl = ShopListRepositoryImpl
     private val addShopItemUseCase: AddShopItemUseCase = AddShopItemUseCase(shopListRepositoryImpl)
     private val editShopItemUseCase: EditShopItemUseCase =
         EditShopItemUseCase(shopListRepositoryImpl)
@@ -47,6 +47,7 @@ class ShopItemViewModel : ViewModel() {
     }
 
     fun editShopItemFromMainList(inputName: String?, inputCount: String?) {
+
         val name = parseInputName(inputName)
         val value = parseInputCount(inputCount)
 
@@ -85,7 +86,7 @@ class ShopItemViewModel : ViewModel() {
             result = false
         }
 
-        if (count > ERROR_PARSE_INPUT_COUNT) {
+        if (count <= ERROR_PARSE_INPUT_COUNT) {
             _errorInputCount.value = true
             result = false
         }

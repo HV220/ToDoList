@@ -6,7 +6,7 @@ import com.example.todolist.domain.ShopItem
 import com.example.todolist.domain.ShopListRepository
 import kotlin.random.Random
 
-class ShopListRepositoryImpl : ShopListRepository {
+object ShopListRepositoryImpl : ShopListRepository {
 
     private val shopList = sortedSetOf<ShopItem>({ o1, o2 -> o1.id.compareTo(o2.id) })
 
