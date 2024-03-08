@@ -1,7 +1,6 @@
 package com.example.todolist.presentation
 
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -68,11 +67,11 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupAdapterOnClickListener() {
         adapter.onClickListenerShopItem = {
-            Log.d(TAG, it.toString())
+            val intent = ShopItemActivity.getEditShowItemIntent(this@MainActivity, it.id)
+            startActivity(intent)
         }
         adapter.onLongClickListenerShopItem = {
             model.editEnableStateShopItem(it)
-            Log.d(TAG, it.toString())
         }
     }
 
@@ -104,7 +103,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupAddItemFloatingActionButtonOnClickListener() {
         addDoFloatingButton.setOnClickListener {
-            val intent = ShopItemActivity.getIntent(this@MainActivity)
+            val intent = ShopItemActivity.getAddShowItemIntent(this@MainActivity)
             startActivity(intent)
         }
     }
