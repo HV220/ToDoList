@@ -13,7 +13,7 @@ Welcome to the ToDoList App, where simplicity meets efficiency. Our elegantly de
 - Reliable Data Retention: Our robust Room database technology keeps your tasks safely stored and ready for when you return.
 - Interactive Animations: Engage with the app through delightful, fluid animations that respond to your touch.
 - Gentle Reminder Feature: Softly dim tasks via a long press, creating a visual cue that keeps items in sight but out of focus.
-- Quantity Counts: Clearly note quantities, like "3 loaves of bread," making your list informative and precise.
+- Quantity Counts: Clearly note quantities, like "loaves of bread,3" making your list informative and precise.
 - Instant Updates: With RxJava, your task list refreshes instantly, keeping your focus on the task at hand.
 
 ## How It Works
@@ -21,9 +21,8 @@ Welcome to the ToDoList App, where simplicity meets efficiency. Our elegantly de
 1. Launch the ToDoList App and embrace a clutter-free interface.
 2. Hit the "+" to draft a new task amidst a backdrop of tranquility.
 3. Detail your task, imbuing each word with purpose and clarity.
-4. Paint your tasks with priority colors and watch your list transform into a mosaic of organized activities.
-5. Tap 'Save' and witness your tasks fall into a harmonious array, ready for action.
-6. Return to a list that's as persistent and dependable as your ambition.
+4. Tap 'Save' and witness your tasks fall into a harmonious array, ready for action.
+5. Return to a list that's as persistent and dependable as your ambition.
 
 ## Dive Into Simplicity
 
