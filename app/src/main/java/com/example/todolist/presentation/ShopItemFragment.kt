@@ -1,5 +1,6 @@
 package com.example.todolist.presentation
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +14,15 @@ import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 
 class ShopItemFragment : Fragment() {
+    private var screenMode: String = UNDEFINED_SCREEN_MODE
+    private var shopItemId: Int = UNDEFINED_ID
+    private lateinit var tilName: TextInputLayout
+    private lateinit var etName: TextInputEditText
+    private lateinit var tilCount: TextInputLayout
+    private lateinit var etCount: TextInputEditText
+    private lateinit var bSave: MaterialButton
+    private lateinit var shopItemViewModel: ShopItemViewModel
+    private lateinit var onSuccessClickListener: OnSuccessClickListener
 
     companion object {
         private const val SCREEN_MODE = "extra_mode"
@@ -42,15 +52,20 @@ class ShopItemFragment : Fragment() {
         }
     }
 
-    private var screenMode: String = UNDEFINED_SCREEN_MODE
-    private var shopItemId: Int = UNDEFINED_ID
-    private lateinit var tilName: TextInputLayout
-    private lateinit var etName: TextInputEditText
-    private lateinit var tilCount: TextInputLayout
-    private lateinit var etCount: TextInputEditText
-    private lateinit var bSave: MaterialButton
-    private lateinit var shopItemViewModel: ShopItemViewModel
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
+        initViews(view)
+        setupViewModel()
+        setupViewModelOnClickListener()
+        choseActionScreenMode()
+        setupViewModelObservable()
+        setupViewDoOnTextChanged()
+    }
+
+    interface OnSuccessClickListener {
+        fun onSuccessClick()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -65,16 +80,15 @@ class ShopItemFragment : Fragment() {
         )
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        initViews(view)
-        setupViewModel()
-        setupViewModelOnClickListener()
-        choseActionScreenMode()
-        setupViewModelObservable()
-        setupViewDoOnTextChanged()
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if (context is OnSuccessClickListener) {
+            onSuccessClickListener = context
+        } else {
+            throw RuntimeException("$context must implement onSuccessClickListener ")
+        }
     }
+
 
     private fun setupViewDoOnTextChanged() {
         etName.doOnTextChanged { text, _, _, _ ->
@@ -187,7 +201,10 @@ class ShopItemFragment : Fragment() {
 
     private fun setupViewModelOnClickListener() {
         shopItemViewModel.shouldCloseScreen.observe(viewLifecycleOwner) {
+            onSuccessClickListener.onSuccessClick()
             activity?.onBackPressedDispatcher?.onBackPressed()
         }
     }
+
+
 }
