@@ -1,7 +1,10 @@
 package com.example.todolist.presentation
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentContainerView
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.ItemTouchHelper.RIGHT
@@ -9,13 +12,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.todolist.R
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), ShopItemFragment.OnSuccessClickListener {
     private lateinit var model: MainViewModel
     private lateinit var adapter: ShopItemAdapter
     private lateinit var recyclerView: RecyclerView
     private lateinit var touchShopItem: ItemTouchHelper
     private lateinit var swipeDeleteShopItem: ItemTouchHelper.SimpleCallback
     private lateinit var addDoFloatingButton: FloatingActionButton
+    private var mainFragmentContainer: FragmentContainerView? = null
 
     companion object {
         const val TAG = "MainActivity"
@@ -34,6 +38,12 @@ class MainActivity : AppCompatActivity() {
         setTouchHelperToRecyclerView()
         setupFloatingActionButton()
         setupAddItemFloatingActionButtonOnClickListener()
+    }
+
+    private fun isOneColumnCheck(): Boolean {
+        mainFragmentContainer = findViewById(R.id.land_show_item_fragment)
+
+        return mainFragmentContainer == null
     }
 
     private fun setupAdapter() {
@@ -67,12 +77,24 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupAdapterOnClickListener() {
         adapter.onClickListenerShopItem = {
-            val intent = ShopItemActivity.getEditShowItemIntent(this@MainActivity, it.id)
-            startActivity(intent)
+            if (isOneColumnCheck()) {
+                val intent = ShopItemActivity.getEditShowItemIntent(this@MainActivity, it.id)
+                startActivity(intent)
+            } else {
+                launchFragment(ShopItemFragment.getEditFragmentInstance(it.id))
+            }
         }
         adapter.onLongClickListenerShopItem = {
             model.editEnableStateShopItem(it)
         }
+    }
+
+    private fun launchFragment(fragment: Fragment) {
+        supportFragmentManager.popBackStack()
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.land_show_item_fragment, fragment)
+            .addToBackStack(null)
+            .commit()
     }
 
     private fun setupSwipeDeleteShopItem() {
@@ -103,8 +125,16 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupAddItemFloatingActionButtonOnClickListener() {
         addDoFloatingButton.setOnClickListener {
-            val intent = ShopItemActivity.getAddShowItemIntent(this@MainActivity)
-            startActivity(intent)
+            if (isOneColumnCheck()) {
+                val intent = ShopItemActivity.getAddShowItemIntent(this@MainActivity)
+                startActivity(intent)
+            } else {
+                launchFragment(ShopItemFragment.getAddFragmentInstance())
+            }
         }
+    }
+
+    override fun onSuccessClick() {
+        Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show()
     }
 }

@@ -3,10 +3,11 @@ package com.example.todolist.presentation
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.todolist.R
 
-class ShopItemActivity : AppCompatActivity() {
+class ShopItemActivity : AppCompatActivity(), ShopItemFragment.OnSuccessClickListener {
     private var screenMode = UNDEFINED_SCREEN_MODE
     private var shopItemId = UNDEFINED_ID
 
@@ -41,7 +42,7 @@ class ShopItemActivity : AppCompatActivity() {
         val fragment = setupFragment()
 
         supportFragmentManager.beginTransaction()
-            .add(R.id.fragment_container_view_shop, fragment)
+            .replace(R.id.fragment_container_view_shop, fragment)
             .commit()
     }
 
@@ -72,6 +73,11 @@ class ShopItemActivity : AppCompatActivity() {
             }
             shopItemId = intent.getIntExtra(EXTRA_SHOP_ITEM_ID, UNDEFINED_ID)
         }
+    }
+
+    override fun onSuccessClick() {
+        Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show()
+        finish()
     }
 
 }
