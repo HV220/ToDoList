@@ -39,11 +39,12 @@ class ShopItemActivity : AppCompatActivity(), ShopItemFragment.OnSuccessClickLis
         setContentView(R.layout.activity_shop_item)
         parseIntent()
 
-        val fragment = setupFragment()
-
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.fragment_container_view_shop, fragment)
-            .commit()
+        if (savedInstanceState == null) {
+            val fragment = setupFragment()
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container_view_shop, fragment)
+                .commit()
+        }
     }
 
     private fun setupFragment(): ShopItemFragment {
