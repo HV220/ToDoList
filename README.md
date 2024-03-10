@@ -32,4 +32,5 @@ The ToDoList App is not just about what you need to do; it's about realizing the
 
 Your journey to effortless task management starts here. With the ToDoList App, you're not just planning your day; you're redefining it. Join the movement towards a more organized, productive, and colorful life.
 
-https://github.com/HV220/ToDoList/assets/96989018/f8814eb9-2fc1-4e50-9fe4-3b83e954e332
+https://github.com/HV220/ToDoList/assets/96989018/7a54e3e6-4c88-4552-821a-f6a6642ed014
+
